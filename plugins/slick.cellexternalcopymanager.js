@@ -143,8 +143,20 @@
       
       var oneCellToMultiple = false;
       var destH = clippedRange.length;
-      var destW = clippedRange.length ? clippedRange[0].length : 0;
-      if (clippedRange.length == 1 && clippedRange[0].length == 1 && selectedRange){
+
+      var destW=0;
+
+      if (clippedRange.length) {
+        // assume W is first non zero length row. This is to fix the issue where some rows are blank
+        for (var x=0;x<clippedRange.length;x++) {
+          if (clippedRange[x] && clippedRange[x].length>0){
+            destW=clippedRange[x].length;
+          }
+        }
+      }
+
+
+      if (clippedRange.length == 1 && destW == 1 && selectedRange){
         oneCellToMultiple = true;
         destH = selectedRange.toRow - selectedRange.fromRow +1;
         destW = selectedRange.toCell - selectedRange.fromCell +1;
@@ -197,8 +209,10 @@
                 this.oldValues[y][x] = dt[columns[destx]['id']];
                 if (oneCellToMultiple)
                   this.setDataItemValueForColumn(dt, columns[destx], clippedRange[0][0]);
-                else
-                  this.setDataItemValueForColumn(dt, columns[destx], clippedRange[y][x]);
+                else {
+                  if (clippedRange[y] && clippedRange[y].length>x)
+                    this.setDataItemValueForColumn(dt, columns[destx], clippedRange[y][x]);
+                }
                 _grid.updateCell(desty, destx);
               }
             }
