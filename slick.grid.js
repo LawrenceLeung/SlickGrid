@@ -361,6 +361,14 @@ if (typeof Slick === "undefined") {
             .bind("keypress", handleKeyPress);
 
 
+        if ($lockedHeaders) {
+          $lockedHeaders
+            .bind("contextmenu", handleHeaderContextMenu)
+            .bind("click", handleHeaderClick)
+            .delegate(".slick-header-column", "mouseenter", handleHeaderMouseEnter)
+            .delegate(".slick-header-column", "mouseleave", handleHeaderMouseLeave);
+        }
+
 
         var canvases = [$canvas[0]];
         if ($lockedCanvas) { canvases.push( $lockedCanvas[0]); }
@@ -2444,13 +2452,13 @@ if (typeof Slick === "undefined") {
     }
 
     function handleHeaderContextMenu(e) {
-      var $header = $(e.target).closest(".slick-header-column", ".slick-header-columns");
+      var $header = $(e.target).closest(".slick-header-column", ".slick-header-columns,.slick-locked-header-columns");
       var column = $header && $header.data("column");
       trigger(self.onHeaderContextMenu, {column: column}, e);
     }
 
     function handleHeaderClick(e) {
-      var $header = $(e.target).closest(".slick-header-column", ".slick-header-columns");
+      var $header = $(e.target).closest(".slick-header-column", ".slick-header-columns,.slick-locked-header-columns");
       var column = $header && $header.data("column");
       if (column) {
         trigger(self.onHeaderClick, {column: column}, e);
