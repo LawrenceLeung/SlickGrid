@@ -689,7 +689,7 @@ if (typeof Slick === "undefined") {
     }
 
     function setupColumnSort() {
-      $headers.click(function (e) {
+        $lockedHeaders.add($headers).click(function (e) {
         // temporary workaround for a bug in jQuery 1.7.1 (http://bugs.jquery.com/ticket/11328)
         e.metaKey = e.metaKey || e.ctrlKey;
 
