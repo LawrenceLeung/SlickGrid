@@ -701,7 +701,7 @@ if (typeof Slick === "undefined") {
     }
 
     function setupColumnSort() {
-        $lockedHeaders.add($headers).click(function (e) {
+        $headers.add($lockedHeaders).click(function (e) {
         // temporary workaround for a bug in jQuery 1.7.1 (http://bugs.jquery.com/ticket/11328)
         e.metaKey = e.metaKey || e.ctrlKey;
 
@@ -1248,7 +1248,7 @@ if (typeof Slick === "undefined") {
     function setSortColumns(cols) {
       sortColumns = cols;
 
-      var headerColumnEls = $headers.children();
+      var headerColumnEls = $headers.add($lockedHeaders).children();
       headerColumnEls
           .removeClass("slick-header-column-sorted")
           .find(".slick-sort-indicator")
