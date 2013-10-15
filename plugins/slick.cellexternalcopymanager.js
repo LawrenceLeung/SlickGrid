@@ -58,7 +58,14 @@
     
     function getDataItemValueForColumn(item, columnDef) {
       if (_options.dataItemColumnValueExtractor) {
-        return _options.dataItemColumnValueExtractor(item, columnDef);
+        var value= _options.dataItemColumnValueExtractor(item, columnDef);
+
+        // alias null/undefined to blank so that copy and paste of blank cells works as imagined
+        if (value === undefined || value === null){
+          return ' ';
+        }
+
+        return value;
       }
 
       var retVal = '';
@@ -80,6 +87,12 @@
     }
     
     function setDataItemValueForColumn(item, columnDef, value) {
+
+      // invert the conversion between blank back to null null
+      if (value === ' ' || value === ''){
+        value = null;
+      }
+
       if (_options.dataItemColumnValueSetter) {
         return _options.dataItemColumnValueSetter(item, columnDef, value);
       }
