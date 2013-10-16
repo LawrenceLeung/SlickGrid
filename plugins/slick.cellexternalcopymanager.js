@@ -61,7 +61,7 @@
         var value= _options.dataItemColumnValueExtractor(item, columnDef);
 
         // alias null/undefined to blank so that copy and paste of blank cells works as imagined
-        if (value === undefined || value === null){
+        if (value === undefined || value === null || value == ''){
           return ' ';
         }
 
