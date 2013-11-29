@@ -455,6 +455,10 @@ if (typeof Slick === "undefined") {
       return num;
     }
 
+    function isLockedColumn(cell){
+      return (columns[cell] && columns[cell].locked);
+    }
+
     // locked header width + border
     function getLockedColumnsTotalWidth(){
       var lockedWidth = getHeadersWidth(true);
@@ -2578,6 +2582,8 @@ if (typeof Slick === "undefined") {
     }
 
     function scrollCellIntoView(row, cell) {
+      if (isLockedColumn(cell)) return; // assume locked are already in view.  Don't scroll
+
       var colspan = getColspan(row, cell);
       var left = columnPosLeft[cell]-getLockedColumnsTotalWidth(),
         right = columnPosRight[cell + (colspan > 1 ? colspan - 1 : 0)],
