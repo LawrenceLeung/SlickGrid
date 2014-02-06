@@ -1613,9 +1613,9 @@ if (typeof Slick === "undefined") {
       if (!cacheEntry) {
         return;
       }
-      $canvas[0].removeChild(cacheEntry.rowNode);
+      $(cacheEntry.rowNode).remove();
       if (cacheEntry.lockedRowNode){
-        $lockedCanvas[0].removeChild(cacheEntry.lockedRowNode);
+        $(cacheEntry.lockedRowNode).remove();
       }
       delete rowsCache[row];
       delete postProcessedRows[row];
@@ -1878,11 +1878,11 @@ if (typeof Slick === "undefined") {
       while ((cellToRemove = cellsToRemove.pop()) != null) {
         var cellNode=cacheEntry.cellNodesByColumnIdx[cellToRemove];
         try {
-          cacheEntry.rowNode.removeChild(cellNode);
+          $(cellNode).remove();
         } catch (e){}
         try {
           if (cacheEntry.lockedRowNode){
-            cacheEntry.lockedRowNode.removeChild(cellNode);
+            $(cellNode).remove();
           }
         } catch (e){}
 
