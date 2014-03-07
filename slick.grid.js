@@ -1834,7 +1834,7 @@ if (typeof Slick === "undefined") {
       if (cacheEntry) {
         if (cacheEntry.cellRenderQueue.length) {
           var lastChild = cacheEntry.rowNode.lastChild;
-          while (cacheEntry.cellRenderQueue.length) {
+          while (lastChild && cacheEntry.cellRenderQueue.length) {
             var columnIdx = cacheEntry.cellRenderQueue.pop();
             cacheEntry.cellNodesByColumnIdx[columnIdx] = lastChild;
             lastChild = lastChild.previousSibling;
